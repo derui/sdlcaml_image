@@ -1,0 +1,7 @@
+S src
+B src
+EXT spec
+PKG sdlcaml
+PKG core
+PKG ctypes
+PKG xml-light

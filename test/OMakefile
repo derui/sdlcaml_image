@@ -22,8 +22,10 @@ open MyOCaml
 USE_OCAMLFIND = true
 #
 OCAMLPACKS[] =
+  core
   ctypes
   ctypes.foreign
+  ppx_simplespec
   sdlcaml
 #
 if $(not $(OCAMLFIND_EXISTS))
@@ -34,7 +36,7 @@ if $(not $(OCAMLFIND_EXISTS))
 #
 # Include path
 #
-OCAMLINCLUDES += 
+OCAMLINCLUDES += $(file ../src/)
 
 #
 # Compile native or byte code?
@@ -44,18 +46,28 @@ OCAMLINCLUDES +=
 NATIVE_ENABLED = $(OCAMLOPT_EXISTS)
 BYTE_ENABLED = $(not $(OCAMLOPT_EXISTS))
 
+MY_LINK_FLAGS = $(shell sdl2-config --cflags --libs) -DDEBUG -lGL
 #
 # Various options
 #
-OCAMLFLAGS    += 
+OCAMLFLAGS    += -thread
 OCAMLCFLAGS   +=
 OCAMLOPTFLAGS +=
-# OCAML_LINK_FLAGS +=
+OCAML_LINK_FLAGS += -cclib "$(MY_LINK_FLAGS) -lSDL2_image"
 # OCAML_BYTE_LINK_FLAGS +=
 # OCAML_NATIVE_LINK_FLAGS +=
 
-# OCAML_LIBS +=
+OCAML_LIBS += ../src/sdlcaml_image
 # OCAML_CLIBS +=
 # OCAML_OTHER_LIBS += nums
 # OCAML_LIB_FLAGS +=
 #
+FILES[] =
+	sdlcaml_image_test
+
+OCamlProgram(sdlcaml_image_test, sdlcaml_image_test)
+
+test: $(addsuffix $(EXE), $(FILES))
+	./sdlcaml_image_test$(EXE)
+
+DEFAULT: test

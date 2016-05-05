@@ -4,7 +4,7 @@
    @author derui
    @since 0.1
 *)
-module E = Sdlcaml_image_error
+module E = Sdlcaml.Std.Error
 open Ctypes
 open Foreign
 

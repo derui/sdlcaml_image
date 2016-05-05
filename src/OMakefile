@@ -59,7 +59,7 @@ OCAMLOPTFLAGS +=
 # OCAML_OTHER_LIBS += nums
 # OCAML_LIB_FLAGS +=
 #
-LIB = sdlcaml-image
+LIB = sdlcaml_image
 FILES[] = $(removesuffix $(ls *.ml))
 
 MyOCamlPackage($(LIB), $(FILES), $(EMPTY), -linkall, true)

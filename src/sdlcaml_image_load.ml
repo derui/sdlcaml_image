@@ -2,7 +2,7 @@ open Ctypes
 open Foreign
 
 module S = Sdlcaml.Std
-module E = Sdlcaml_image_error
+module E = S.Error
 
 type image_type = BMP | CUR | GIF | ICO | JPG | LBM | PCX | PNG | PNM | TGA | TIF | XGF | XPM | XV
 

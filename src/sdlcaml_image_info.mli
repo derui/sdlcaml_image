@@ -30,9 +30,9 @@ val is_xpm: Sdlcaml.Std.RWops.t -> bool
    readable as a XPM
 *)
 
-val is_xgf: Sdlcaml.Std.RWops.t -> bool
-(* [is_cgf rwops] if the XGF format is supported, then the image data is tested to see if it is
-   readable as a XGF
+val is_xcf: Sdlcaml.Std.RWops.t -> bool
+(* [is_xcf rwops] if the XCF format is supported, then the image data is tested to see if it is
+   readable as a XCF
 *)
 
 val is_pcx: Sdlcaml.Std.RWops.t -> bool

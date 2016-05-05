@@ -1,0 +1,7 @@
+version = "0.1"
+description = "SDL2_image bindings for OCaml"
+requires = "ctypes ctypes.foreign sdlcaml"
+archive(byte) = "sdlcaml_image.cma"
+archive(byte, plugin) = "sdlcaml_image.cma"
+archive(native) = "sdlcaml_image.cmxa"
+exists_if = "sdlcaml_image.cma"

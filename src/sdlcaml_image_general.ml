@@ -22,7 +22,7 @@ let init flags =
     | `TIF -> 0x4
     | `WEBP -> 0x8
   ) flags in
-  let flag = List.fold_left (fun memo f -> memo lor f) 0 flags in
+  let flag = List.fold_left (lor) 0 flags in
   let ret = Inner.init flag in
   if ret = flag then Sdlcaml.Std.Types.Result.return ()
   else Sdlcaml.Std.Types.Result.Failure (E.get ())

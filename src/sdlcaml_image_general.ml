@@ -25,6 +25,6 @@ let init flags =
   let flag = List.fold_left (lor) 0 flags in
   let ret = Inner.init flag in
   if ret = flag then Sdlcaml.Std.Types.Result.return ()
-  else Sdlcaml.Std.Types.Result.Failure (E.get ())
+  else Sdlcaml.Std.Types.Result.fail (E.get ())
 
 let quit = Inner.quit

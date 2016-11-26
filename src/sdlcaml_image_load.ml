@@ -16,15 +16,27 @@ end
 
 let wrap pred result =
   if pred () then S.Types.Result.return result
-  else S.Types.Result.Failure (E.get ())
+  else S.Types.Result.fail (E.get ())
 
 let load fname =
   let ret = Inner.load fname in
   wrap (fun () -> to_voidp ret <> null) ret
 
+let load_with fname =
+  let ret = Inner.load fname in
+  let module R = S.Types.Resource in
+  let open Core.Std in
+  R.make (fun c -> protectx ~finally:S.Surface.free ~f:c ret)
+
 let load_rw ?(free_src=true) src =
   let ret = Inner.load_rw src free_src in
   wrap (fun () -> to_voidp ret <> null) ret
+
+let load_rw_with ?(free_src=true) src =
+  let ret = Inner.load_rw src free_src in
+  let module R = S.Types.Resource in
+  let open Core.Std in
+  R.make (fun c -> protectx ~finally:S.Surface.free ~f:c ret)
 
 let string_of_image_type = function
   | BMP -> "BMP"
@@ -46,3 +58,11 @@ let load_typed_rw ?(free_src=true) ~typ ~src =
   let typ = string_of_image_type typ in
   let ret = Inner.load_typed_rw src free_src typ in
   wrap (fun () -> to_voidp ret <> null) ret
+
+let load_typed_rw_with ?(free_src=true) ~typ ~src =
+  let typ = string_of_image_type typ in
+  let ret = Inner.load_typed_rw src free_src typ in
+  let module R = S.Types.Resource in
+  let open Core.Std in
+  R.make (fun c -> protectx ~finally:S.Surface.free ~f:c ret)
+
